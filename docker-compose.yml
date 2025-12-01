@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   crypto-newsletter:
     build:
@@ -7,7 +5,7 @@ services:
       dockerfile: ./docker/Dockerfile
     container_name: crypto-newsletter
     restart: unless-stopped
-    env_file: .env
+    env_file: ./.env
     volumes:
       - ./templates:/app/templates:ro
       - newsletter-cache:/app/.cache

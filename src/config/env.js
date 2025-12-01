@@ -1,11 +1,9 @@
 import dotenv from "dotenv";
 
 export function loadEnv() {
-  const result = dotenv.config();
-
-  if (result.error) {
-    console.warn("Warning: .env file not found. Ensure environment variables are set.");
-  }
+  // Try to load .env file (for local development)
+  // In Docker, env vars are injected directly, so this is optional
+  dotenv.config();
 
   // Validate required environment variables
   const required = [
@@ -25,9 +23,11 @@ export function loadEnv() {
 
   if (missing.length > 0) {
     throw new Error(
-      `Missing required environment variables: ${missing.join(", ")}`
+      `Missing required environment variables: ${missing.join(", ")}\n` +
+      `Tip: Copy .env.example to .env and configure your API keys.`
     );
   }
 
-  console.log("Environment configuration loaded successfully");
+  const source = process.env.NODE_ENV === "production" ? "environment" : ".env file";
+  console.log(`Environment configuration loaded successfully from ${source}`);
 }
