@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  crypto-newsletter:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: crypto-newsletter
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./templates:/app/templates:ro
+      - newsletter-cache:/app/.cache
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - NODE_ENV=production
+    networks:
+      - crypto-network
+
+networks:
+  crypto-network:
+    driver: bridge
+
+volumes:
+  newsletter-cache:

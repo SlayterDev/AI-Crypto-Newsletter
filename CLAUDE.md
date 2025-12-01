@@ -63,12 +63,17 @@ npm run clear-cache
 ### Running the Newsletter
 
 ```bash
-# Start the scheduled daily newsletter (runs at midnight UTC)
+# Start the scheduled newsletter (default: daily at midnight local time)
 npm start
 
 # Development mode with auto-reload
 npm run dev
 ```
+
+**Note:**
+- Schedule is configurable via `CRON_SCHEDULE` in `.env` file
+- Times are in your local timezone (see examples in `.env.example`)
+- The scheduler will log the timezone being used on startup
 
 ### Docker
 
@@ -87,6 +92,13 @@ docker-compose down
 ```
 
 Configuration is via environment variables only (defined in `.env` file).
+
+**For detailed Docker deployment instructions, see `DOCKER.md`** covering:
+- Volume management
+- Health checks and monitoring
+- Production configuration
+- Troubleshooting
+- Backup and restore
 
 ### Gmail SMTP Setup
 

@@ -1,6 +1,0 @@
-services:
-  crypto-newsletter:
-    build: ./docker
-    env_file: .env
-    volumes:
-      - ./templates:/app/templates

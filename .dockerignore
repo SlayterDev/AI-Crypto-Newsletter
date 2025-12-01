@@ -1,0 +1,52 @@
+# Dependencies (will be installed in container)
+node_modules/
+package-lock.json
+
+# Environment files (use docker-compose env_file)
+.env
+.env.local
+.env.*.local
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Cache
+.cache/
+
+# Generated files
+newsletter-*.html
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files
+docker/
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+
+# Test files
+test-*.js
+clear-cache.js
+
+# CI/CD
+.github/
