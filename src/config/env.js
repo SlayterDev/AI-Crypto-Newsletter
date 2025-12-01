@@ -11,6 +11,7 @@ export function loadEnv() {
   const required = [
     "OPENAI_API_KEY",
     "COINGECKO_API_KEY",
+    "CRYPTOPANIC_API_KEY",
     "SMTP_HOST",
     "SMTP_PORT",
     "SMTP_USER",
