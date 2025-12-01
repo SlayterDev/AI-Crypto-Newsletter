@@ -1,6 +1,7 @@
 import fetchMarketData from "./adapters/coingecko.js";
 import fetchNews from "./adapters/cryptopanic.js";
 import correlateData from "./engine/correlate.js";
+import generateSummaries from "./engine/summarize.js";
 
 export async function runDailyPipeline() {
   console.log("Pipeline execution started...");
@@ -63,7 +64,18 @@ export async function runDailyPipeline() {
       }
     });
 
-    // TODO: Step 4: Generate LLM summaries
+    // Step 4: Generate LLM summaries
+    console.log("\nGenerating LLM summaries...");
+    const summaries = await generateSummaries(correlations);
+    console.log(`Successfully generated ${summaries.length} summaries`);
+
+    // Log summaries
+    console.log("\nGenerated summaries:");
+    summaries.forEach((summary) => {
+      console.log(`\n${summary.symbol}:`);
+      console.log(`  ${summary.summary}`);
+    });
+
     // TODO: Step 5: Compile newsletter
     // TODO: Step 6: Send email
 
