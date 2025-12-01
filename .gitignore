@@ -59,3 +59,4 @@ temp/
 dist/
 build/
 .claude/
+newsletter-*.html

@@ -2,6 +2,7 @@ import fetchMarketData from "./adapters/coingecko.js";
 import fetchNews from "./adapters/cryptopanic.js";
 import correlateData from "./engine/correlate.js";
 import generateSummaries from "./engine/summarize.js";
+import compileNewsletter from "./compiler/newsletter.js";
 
 export async function runDailyPipeline() {
   console.log("Pipeline execution started...");
@@ -76,10 +77,16 @@ export async function runDailyPipeline() {
       console.log(`  ${summary.summary}`);
     });
 
-    // TODO: Step 5: Compile newsletter
+    // Step 5: Compile newsletter
+    console.log("\nCompiling newsletter...");
+    const newsletterHtml = compileNewsletter(summaries, correlations);
+    console.log(`Newsletter compiled (${newsletterHtml.length} characters)`);
+
     // TODO: Step 6: Send email
 
     console.log("\nPipeline execution completed successfully");
+
+    return newsletterHtml; // Return for testing/debugging
   } catch (error) {
     console.error("Pipeline execution failed:", error.message);
     throw error;

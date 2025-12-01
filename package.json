@@ -9,6 +9,7 @@
     "dev": "node --watch src/index.js",
     "test": "node --test",
     "test:pipeline": "node test-pipeline.js",
+    "test:newsletter": "node test-newsletter.js",
     "clear-cache": "node clear-cache.js"
   },
   "keywords": [
