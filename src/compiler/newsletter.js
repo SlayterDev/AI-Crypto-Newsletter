@@ -60,6 +60,7 @@ function prepareTemplateData(summaries, correlations) {
   }).filter(Boolean); // Remove any null entries
 
   return {
+    title: process.env.NEWSLETTER_TITLE || "Crypto Daily Newsletter",
     date: formatDate(new Date()),
     generatedAt: formatTimestamp(new Date()),
     coinCount: coins.length,

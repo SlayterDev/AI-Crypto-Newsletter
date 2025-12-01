@@ -3,6 +3,7 @@ import fetchNews from "./adapters/cryptopanic.js";
 import correlateData from "./engine/correlate.js";
 import generateSummaries from "./engine/summarize.js";
 import compileNewsletter from "./compiler/newsletter.js";
+import sendNewsletter from "./adapters/smtp.js";
 
 export async function runDailyPipeline() {
   console.log("Pipeline execution started...");
@@ -82,7 +83,18 @@ export async function runDailyPipeline() {
     const newsletterHtml = compileNewsletter(summaries, correlations);
     console.log(`Newsletter compiled (${newsletterHtml.length} characters)`);
 
-    // TODO: Step 6: Send email
+    // Step 6: Send email
+    console.log("\nSending newsletter via email...");
+    const sendResult = await sendNewsletter(newsletterHtml);
+
+    if (sendResult.success) {
+      if (sendResult.dryRun) {
+        console.log("Newsletter prepared (DRY_RUN mode - not sent)");
+      } else {
+        console.log(`Newsletter sent successfully to ${sendResult.recipients.length} recipient(s)`);
+        console.log(`Message ID: ${sendResult.messageId}`);
+      }
+    }
 
     console.log("\nPipeline execution completed successfully");
 

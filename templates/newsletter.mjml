@@ -1,6 +1,6 @@
 <mjml>
   <mj-head>
-    <mj-title>Crypto Daily Newsletter - {{date}}</mj-title>
+    <mj-title>{{title}} - {{date}}</mj-title>
     <mj-attributes>
       <mj-text font-family="Arial, sans-serif" font-size="14px" line-height="160%" color="#1e293b"/>
       <mj-section padding="20px"/>
@@ -11,7 +11,7 @@
     <mj-section background-color="#1e293b" padding="30px 20px">
       <mj-column>
         <mj-text color="#ffffff" font-size="32px" font-weight="bold" align="center" padding-bottom="10px">
-          📊 Crypto Daily Newsletter
+          📊 {{title}}
         </mj-text>
         <mj-text color="#94a3b8" font-size="16px" align="center">
           {{date}}

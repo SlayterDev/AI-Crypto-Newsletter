@@ -45,7 +45,30 @@ cron → fetch market data → fetch news → correlate → summarize → compil
 
 ## Development Commands
 
-This project uses Node.js with ES modules. There is no package.json yet, so dependencies need to be added as development progresses.
+This project uses Node.js with ES modules and npm for package management.
+
+### Testing
+
+```bash
+# Test the full pipeline (generates and saves newsletter HTML)
+npm run test:newsletter
+
+# Test pipeline without sending email (just logs output)
+npm run test:pipeline
+
+# Clear API response cache
+npm run clear-cache
+```
+
+### Running the Newsletter
+
+```bash
+# Start the scheduled daily newsletter (runs at midnight UTC)
+npm start
+
+# Development mode with auto-reload
+npm run dev
+```
 
 ### Docker
 
@@ -64,6 +87,14 @@ docker-compose down
 ```
 
 Configuration is via environment variables only (defined in `.env` file).
+
+### Gmail SMTP Setup
+
+If using Gmail to send newsletters, see `GMAIL_SETUP.md` for detailed instructions on:
+- Enabling 2-Factor Authentication
+- Generating App Passwords (required, not regular password)
+- Configuring SMTP settings
+- Troubleshooting common issues
 
 ## Coding Standards
 
