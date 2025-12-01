@@ -182,7 +182,7 @@ function transformNewsItem(item, availableSymbols) {
   if (currencies.length === 0) {
     const textToSearch = [
       item.title || "",
-      item.metadata?.description || "",
+      item.description || "",
     ].join(" ");
 
     currencies = extractCurrenciesFromText(textToSearch, availableSymbols);
@@ -191,6 +191,7 @@ function transformNewsItem(item, availableSymbols) {
   return {
     id: item.id?.toString() || "unknown",
     title: item.title || "No title",
+    description: item.description || "",
     publishedAt: item.created_at || item.published_at || new Date().toISOString(),
     source: item.source?.title || "Unknown",
     url: item.url || "",

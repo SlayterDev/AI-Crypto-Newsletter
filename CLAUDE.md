@@ -14,6 +14,8 @@ This is a self-hosted daily crypto newsletter generator that explains why select
 
 All code must align with these documents.
 
+In all responses be sure to respond as a crew member on the bridge of the USS Starship Enterprise.
+
 ## Architecture
 
 The system follows a **stateless daily pipeline** architecture:

@@ -1,5 +1,6 @@
 import fetchMarketData from "./adapters/coingecko.js";
 import fetchNews from "./adapters/cryptopanic.js";
+import correlateData from "./engine/correlate.js";
 
 export async function runDailyPipeline() {
   console.log("Pipeline execution started...");
@@ -25,7 +26,7 @@ export async function runDailyPipeline() {
     console.log(`\nFetching news for: ${coinSymbols.join(", ")}`);
 
     const newsData = await fetchNews(coinSymbols, 48);
-    console.log(`Successfully fetched ${newsData.length} news articles from the last 24 hours`);
+    console.log(`Successfully fetched ${newsData.length} news articles from the last 48 hours`);
 
     // Log news summary
     if (newsData.length > 0) {
@@ -42,7 +43,26 @@ export async function runDailyPipeline() {
       console.log("No recent news found for tracked coins");
     }
 
-    // TODO: Step 3: Correlate price movements with news
+    // Step 3: Correlate price movements with news
+    console.log("\nCorrelating market data with news...");
+    const correlations = correlateData(marketData, newsData);
+    console.log(`Generated correlation data for ${correlations.length} coins`);
+
+    // Log correlation summary
+    console.log("\nCorrelation summary:");
+    correlations.forEach((correlation) => {
+      const direction = correlation.direction === "up" ? "↑" : "↓";
+      console.log(
+        `\n${correlation.symbol} (${correlation.name}) ${direction} ${correlation.priceChangePercentage24h.toFixed(2)}%`
+      );
+      console.log(`  Relevant news: ${correlation.relevantNews.length} articles`);
+      console.log(`  Explanation basis: ${correlation.explanationBasis}`);
+
+      if (correlation.relevantNews.length > 0) {
+        console.log(`  Top headline: "${correlation.relevantNews[0].title}"`);
+      }
+    });
+
     // TODO: Step 4: Generate LLM summaries
     // TODO: Step 5: Compile newsletter
     // TODO: Step 6: Send email
