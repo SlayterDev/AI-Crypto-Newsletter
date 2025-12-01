@@ -1,4 +1,4 @@
-import { clearCache } from "./src/utils/cache.js";
+import { clearCache } from "../src/utils/cache.js";
 
 console.log("Clearing cache...");
 const deletedCount = clearCache();

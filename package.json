@@ -8,17 +8,17 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "test": "node --test",
-    "test:pipeline": "node test-pipeline.js",
-    "test:newsletter": "node test-newsletter.js",
-    "clear-cache": "node clear-cache.js"
+    "test:pipeline": "node scripts/test-pipeline.js",
+    "test:newsletter": "node scripts/test-newsletter.js",
+    "clear-cache": "node scripts/clear-cache.js"
   },
   "keywords": [
     "crypto",
     "newsletter",
     "price-analysis"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "SlayterDev",
+  "license": "MIT",
   "dependencies": {
     "node-cron": "^3.0.3",
     "dotenv": "^16.4.5",

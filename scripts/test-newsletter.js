@@ -1,6 +1,6 @@
 import fs from "fs";
-import { loadEnv } from "./src/config/env.js";
-import { runDailyPipeline } from "./src/pipeline.js";
+import { loadEnv } from "../src/config/env.js";
+import { runDailyPipeline } from "../src/pipeline.js";
 
 // Load environment and run pipeline
 loadEnv();
