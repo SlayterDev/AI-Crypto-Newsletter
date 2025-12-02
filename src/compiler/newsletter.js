@@ -73,7 +73,6 @@ function prepareTemplateData(summaries, correlations) {
  */
 function formatCoinData(summary, correlation) {
   const isUp = correlation.priceChangePercentage24h > 0;
-  const arrow = isUp ? "↑" : "↓";
   const color = getPriceColor(correlation.priceChangePercentage24h);
 
   // Get top news if available
@@ -92,7 +91,7 @@ function formatCoinData(summary, correlation) {
     symbol: correlation.symbol,
     currentPrice: formatPrice(correlation.currentPrice),
     priceChange: formatPercentage(correlation.priceChangePercentage24h),
-    changeText: `${arrow} ${formatPercentage(correlation.priceChangePercentage24h)}`,
+    changeText: `${formatPercentage(correlation.priceChangePercentage24h)}`,
     color,
     summary: summary.summary,
     topNews,
@@ -143,10 +142,10 @@ function formatPercentage(value) {
 }
 
 /**
- * Returns color based on price direction
+ * Returns color based on price direction (optimized for dark theme)
  */
 function getPriceColor(percentChange) {
-  return percentChange > 0 ? "#16a34a" : "#dc2626"; // green : red
+  return percentChange > 0 ? "#22c55e" : "#ef4444"; // bright green : bright red
 }
 
 /**
