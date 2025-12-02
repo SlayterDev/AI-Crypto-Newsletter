@@ -17,9 +17,12 @@ This is a self-hosted daily newsletter that sends you a summarized explanation o
 2. Copy `.env.example` to a new `.env` file
 3. Fill in the API keys
 4. Fill in your SMTP server settings. AI generated gmail instrctions can be found [here](/docs/GMAIL_SETUP.md).
-5. Customize the coins you would like to track in the `COINS` variable. Use the full name of the coin comma separated. Note that adding more coins can increase your OpenAI usage.
-6. Optionally customize `CRON_SCHEDULE`. It will send the email at midnight by default.
-7. Run `docker-compose up -d`
+5. Fill in the email you would like to receive the newsletter at in `TO_EMAILS`. This can be a single email or a comma separated list.
+6. Customize the coins you would like to track in the `COINS` variable. Use the full name of the coin comma separated. Note that adding more coins can increase your OpenAI usage.
+    - For Example: `COINS=bitcoin,dogecoin,ethereum`
+7. **Optional:** Customize `CRON_SCHEDULE`. It will send the email at midnight by default.
+8. **Optional:** Customize the title of your newsletter by changing `NEWSLETTER_TITLE`
+9. Run `docker-compose up -d`
 
 The container should be running and your daily email will be generated on schedule.
 

@@ -26,7 +26,7 @@ cron → fetch market data → fetch news → correlate → summarize → compil
 
 ### Core Components
 
-1. **Scheduler** (`src/scheduler/cron.js`) - Triggers daily pipeline at midnight UTC using node-cron
+1. **Scheduler** (`src/scheduler/cron.js`) - Triggers daily pipeline on and env specified CRON schedule (default midnight).
 2. **Pipeline** (`src/pipeline.js`) - Orchestrates the entire data flow from fetch to send
 3. **Market Data Fetcher** - Pulls 24h price/volume data from CoinGecko
 4. **News Fetcher** - Pulls crypto news headlines from CryptoPanic API
@@ -151,4 +151,4 @@ Do NOT implement:
 ## Entry Point
 
 - `src/index.js` - Loads environment variables and starts the daily scheduler
-- The pipeline runs at midnight UTC and executes all steps sequentially
+- The pipeline runs on a CRON schedule (midnight by default) and executes all steps sequentially
