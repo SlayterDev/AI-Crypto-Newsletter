@@ -60,6 +60,20 @@ npm run test:pipeline
 npm run clear-cache
 ```
 
+**Testing with Mock Adapters:**
+
+The system supports dependency injection for testing without making real API calls:
+
+```javascript
+import { runDailyPipeline } from "./src/pipeline.js";
+import { getMockAdapters } from "./src/tests/fixtures/mockAdapters.js";
+
+// Test pipeline with deterministic mock data
+const mockAdapters = getMockAdapters();
+const newsletter = await runDailyPipeline(mockAdapters);
+// No API calls made, email not sent
+```
+
 ### Running the Newsletter
 
 ```bash

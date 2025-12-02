@@ -10,6 +10,7 @@
     "test": "node --test",
     "test:pipeline": "node scripts/test-pipeline.js",
     "test:newsletter": "node scripts/test-newsletter.js",
+    "test:mocks": "node scripts/test-with-mocks.js",
     "clear-cache": "node scripts/clear-cache.js"
   },
   "keywords": [

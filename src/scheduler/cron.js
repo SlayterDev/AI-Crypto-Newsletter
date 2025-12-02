@@ -3,7 +3,11 @@ import { runDailyPipeline } from "../pipeline.js";
 
 const DEFAULT_SCHEDULE = "0 0 * * *"; // midnight in local timezone
 
-export function scheduleDailyJob() {
+/**
+ * Schedules the daily newsletter job
+ * @param {Object} adapters - Optional adapter set to inject into pipeline
+ */
+export function scheduleDailyJob(adapters) {
   const schedule = process.env.CRON_SCHEDULE || DEFAULT_SCHEDULE;
 
   // Validate cron expression
@@ -18,7 +22,7 @@ export function scheduleDailyJob() {
   console.log(`Timezone: ${timezone}`);
   console.log(`Next run: ${getNextRunTime(schedule)}`);
 
-  cron.schedule(schedule, runDailyPipeline, {
+  cron.schedule(schedule, () => runDailyPipeline(adapters), {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
   });
 }

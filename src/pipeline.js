@@ -1,11 +1,14 @@
-import fetchMarketData from "./adapters/coingecko.js";
-import fetchNews from "./adapters/cryptopanic.js";
+import createAdapters from "./adapters/factory.js";
 import correlateData from "./engine/correlate.js";
 import generateSummaries from "./engine/summarize.js";
 import compileNewsletter from "./compiler/newsletter.js";
-import sendNewsletter from "./adapters/smtp.js";
 
-export async function runDailyPipeline() {
+/**
+ * Runs the daily newsletter pipeline with injected adapters
+ * @param {Object} adapters - Adapter set (marketData, news, llm, mailer)
+ * @returns {Promise<string>} Compiled newsletter HTML
+ */
+export async function runDailyPipeline(adapters = createAdapters()) {
   console.log("Pipeline execution started...");
 
   try {
@@ -13,7 +16,7 @@ export async function runDailyPipeline() {
     const coinIds = process.env.COINS.split(",").map((coin) => coin.trim());
     console.log(`Fetching market data for: ${coinIds.join(", ")}`);
 
-    const marketData = await fetchMarketData(coinIds);
+    const marketData = await adapters.marketData(coinIds);
     console.log(`Successfully fetched data for ${marketData.length} coins`);
 
     // Log each coin's data
@@ -28,7 +31,7 @@ export async function runDailyPipeline() {
     const coinSymbols = marketData.map((coin) => coin.symbol);
     console.log(`\nFetching news for: ${coinSymbols.join(", ")}`);
 
-    const newsData = await fetchNews(coinSymbols, 48);
+    const newsData = await adapters.news(coinSymbols, 48);
     console.log(`Successfully fetched ${newsData.length} news articles from the last 48 hours`);
 
     // Log news summary
@@ -68,7 +71,7 @@ export async function runDailyPipeline() {
 
     // Step 4: Generate LLM summaries
     console.log("\nGenerating LLM summaries...");
-    const summaries = await generateSummaries(correlations);
+    const summaries = await generateSummaries(correlations, adapters.llm);
     console.log(`Successfully generated ${summaries.length} summaries`);
 
     // Log summaries
@@ -85,7 +88,7 @@ export async function runDailyPipeline() {
 
     // Step 6: Send email
     console.log("\nSending newsletter via email...");
-    const sendResult = await sendNewsletter(newsletterHtml);
+    const sendResult = await adapters.mailer(newsletterHtml);
 
     if (sendResult.success) {
       if (sendResult.dryRun) {
