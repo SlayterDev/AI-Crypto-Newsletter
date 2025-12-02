@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
-    "test": "node --test",
+    "test": "node --test 'src/tests/**/*.test.js'",
+    "test:unit": "node --test 'src/tests/unit/**/*.test.js'",
+    "test:integration": "node --test 'src/tests/integration/**/*.test.js'",
     "test:pipeline": "node scripts/test-pipeline.js",
     "test:newsletter": "node scripts/test-newsletter.js",
     "test:mocks": "node scripts/test-with-mocks.js",

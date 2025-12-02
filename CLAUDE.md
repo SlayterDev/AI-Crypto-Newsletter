@@ -50,15 +50,37 @@ This project uses Node.js with ES modules and npm for package management.
 ### Testing
 
 ```bash
-# Test the full pipeline (generates and saves newsletter HTML)
+# Run all unit and integration tests
+npm test
+
+# Run unit tests only (pure business logic)
+npm run test:unit
+
+# Run integration tests only (full pipeline with mocks)
+npm run test:integration
+
+# Test the full pipeline with REAL APIs (generates and saves newsletter HTML)
 npm run test:newsletter
 
-# Test pipeline without sending email (just logs output)
+# Test pipeline with REAL APIs without sending email (just logs output)
 npm run test:pipeline
+
+# Test pipeline with MOCK adapters (no API calls, no emails)
+npm run test:mocks
 
 # Clear API response cache
 npm run clear-cache
 ```
+
+**Test Coverage:**
+- **Unit Tests** (`src/tests/unit/`) - 60 tests covering:
+  - Correlation engine (pure business logic)
+  - Prompt builder (pure templating)
+  - Adapter factory (dependency injection)
+- **Integration Tests** (`src/tests/integration/`) - 15 tests covering:
+  - Full pipeline flow with mock adapters
+  - Data passing between stages
+  - Error handling and edge cases
 
 **Testing with Mock Adapters:**
 
