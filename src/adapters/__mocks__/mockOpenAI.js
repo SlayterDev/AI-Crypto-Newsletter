@@ -26,8 +26,11 @@ export default async function mockGenerateSummaries(prompt, functionSchema, expe
   };
 
   // Return summaries for expected coins (must match OpenAI adapter structure)
-  return expectedCoins.map((symbol) => ({
-    symbol: symbol,
-    summary: mockSummaries[symbol] || `${symbol} moved due to general market conditions. Limited specific news available for this asset.`,
-  }));
+  return {
+    marketSummary: "The cryptocurrency market showed mixed performance today, with Bitcoin and Solana experiencing significant gains due to institutional interest and strategic partnerships, while Ethereum faced a slight decline amid profit-taking activities.",
+    summaries: expectedCoins.map((symbol) => ({
+      symbol: symbol,
+      summary: mockSummaries[symbol] || `${symbol} moved due to general market conditions. Limited specific news available for this asset.`,
+    }))
+  };
 }

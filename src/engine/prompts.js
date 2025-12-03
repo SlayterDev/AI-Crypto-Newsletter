@@ -34,7 +34,7 @@ Remember: Only use the data provided. If data is insufficient for any coin, stat
  * Builds system instructions for the LLM
  */
 function buildSystemInstructions() {
-  return `You are a crypto market analyst explaining price movements to newsletter subscribers.
+  return `You are a crypto market analyst explaining price movements in simple language to newsletter subscribers.
 
 CRITICAL RULES:
 - Analyze ALL coins provided below
@@ -95,6 +95,7 @@ function buildJsonSchema(correlations) {
   }));
 
   return JSON.stringify({
+    marketSummary: "A brief overall summary of the crypto market trends based on the provided data",
     summaries: example.concat([{ "...": "summaries for remaining coins" }])
   }, null, 2);
 }
@@ -109,6 +110,10 @@ export function buildFunctionSchema() {
     parameters: {
       type: "object",
       properties: {
+        marketSummary: {
+          type: "string",
+          description: "A brief overall summary of the crypto market trends based on the provided data"
+        },
         summaries: {
           type: "array",
           description: "Array of summaries, one for each cryptocurrency",
@@ -132,7 +137,7 @@ export function buildFunctionSchema() {
           }
         }
       },
-      required: ["summaries"]
+      required: ["marketSummary", "summaries"]
     }
   };
 }

@@ -30,14 +30,17 @@ export default async function generateSummaries(correlations, llmAdapter = gener
   const expectedCoins = correlations.map((c) => c.symbol);
 
   // Step 4: Call LLM API
-  const summaries = await llmAdapter(prompt, functionSchema, expectedCoins);
+  const llmResponse = await llmAdapter(prompt, functionSchema, expectedCoins);
 
   // Step 5: Add timestamps to all summaries
   const timestamp = new Date().toISOString();
-  const summariesWithTimestamp = summaries.map((summary) => ({
+  const summariesWithTimestamp = llmResponse.summaries.map((summary) => ({
     ...summary,
     generatedAt: timestamp,
   }));
 
-  return summariesWithTimestamp;
+  return {
+    summaries: summariesWithTimestamp,
+    marketSummary: llmResponse.marketSummary,
+  };
 }

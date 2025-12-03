@@ -1,13 +1,17 @@
 import fs from "fs";
 import { loadEnv } from "../src/config/env.js";
 import { runDailyPipeline } from "../src/pipeline.js";
+import mockSendNewsletter from "../src/adapters/__mocks__/mockSMTP.js";
+import createAdapters from "../src/adapters/factory.js";
 
 // Load environment and run pipeline
 loadEnv();
 
 console.log("Running pipeline and saving newsletter...\n");
 
-runDailyPipeline()
+const adapters = createAdapters({ mailer: mockSendNewsletter });
+
+runDailyPipeline(adapters)
   .then((html) => {
     // Save HTML to file
     const filename = `newsletter-${new Date().toISOString().split("T")[0]}.html`;

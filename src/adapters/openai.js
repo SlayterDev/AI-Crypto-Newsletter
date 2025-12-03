@@ -122,7 +122,10 @@ async function performGeneration(prompt, functionSchema, expectedCoins, apiKey) 
 
   console.log(`Successfully generated ${parsedResponse.summaries.length} summaries`);
 
-  return parsedResponse.summaries;
+  return {
+    summaries: parsedResponse.summaries,
+    marketSummary: parsedResponse.marketSummary,
+  };
 }
 
 /**

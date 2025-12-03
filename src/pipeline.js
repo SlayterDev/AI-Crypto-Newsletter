@@ -71,19 +71,20 @@ export async function runDailyPipeline(adapters = createAdapters()) {
 
     // Step 4: Generate LLM summaries
     console.log("\nGenerating LLM summaries...");
-    const summaries = await generateSummaries(correlations, adapters.llm);
-    console.log(`Successfully generated ${summaries.length} summaries`);
+    const llmSummary = await generateSummaries(correlations, adapters.llm);
+    console.log(`Successfully generated ${llmSummary.summaries.length} summaries`);
 
     // Log summaries
     console.log("\nGenerated summaries:");
-    summaries.forEach((summary) => {
+    console.log(`Market Summary: ${llmSummary.marketSummary}`);
+    llmSummary.summaries.forEach((summary) => {
       console.log(`\n${summary.symbol}:`);
       console.log(`  ${summary.summary}`);
     });
 
     // Step 5: Compile newsletter
     console.log("\nCompiling newsletter...");
-    const newsletterHtml = compileNewsletter(summaries, correlations);
+    const newsletterHtml = compileNewsletter(llmSummary.marketSummary, llmSummary.summaries, correlations);
     console.log(`Newsletter compiled (${newsletterHtml.length} characters)`);
 
     // Step 6: Send email

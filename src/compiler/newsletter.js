@@ -21,7 +21,7 @@ const TEMPLATE_PATH = path.join(__dirname, "../../templates/newsletter.mjml");
  * @param {Array} correlations - Array of correlation objects
  * @returns {string} Compiled HTML ready for email
  */
-export default function compileNewsletter(summaries, correlations) {
+export default function compileNewsletter(marketSummary, summaries, correlations) {
   if (!Array.isArray(summaries) || !Array.isArray(correlations)) {
     throw new Error("summaries and correlations must be arrays");
   }
@@ -29,7 +29,7 @@ export default function compileNewsletter(summaries, correlations) {
   console.log(`Compiling newsletter for ${summaries.length} coins...`);
 
   // Step 1: Prepare data for template
-  const templateData = prepareTemplateData(summaries, correlations);
+  const templateData = prepareTemplateData(marketSummary, summaries, correlations);
 
   // Step 2: Render template with data
   const html = renderTemplate(templateData);
@@ -42,7 +42,7 @@ export default function compileNewsletter(summaries, correlations) {
 /**
  * Prepares data for the newsletter template
  */
-function prepareTemplateData(summaries, correlations) {
+function prepareTemplateData(marketSummary, summaries, correlations) {
   // Create a map for quick correlation lookup
   const correlationMap = new Map();
   correlations.forEach((c) => {
@@ -64,6 +64,7 @@ function prepareTemplateData(summaries, correlations) {
     date: formatDate(new Date()),
     generatedAt: formatTimestamp(new Date()),
     coinCount: coins.length,
+    marketSummary,
     coins,
   };
 }

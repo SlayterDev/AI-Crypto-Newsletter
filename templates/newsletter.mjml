@@ -20,20 +20,23 @@
     </mj-section>
 
     <!-- Summary Section -->
-    <mj-section background-color="#1e293b" padding="25px 20px" border-radius="8px">
+    <mj-section background-color="#1e293b" padding="25px 20px">
       <mj-column>
-        <mj-text font-size="18px" font-weight="bold" color="#f1f5f9" padding-bottom="10px">
+        <mj-text font-size="18px" font-weight="bold" color="#f1f5f9">
           📈 Market Summary
         </mj-text>
         <mj-text color="#94a3b8" font-size="14px">
           Tracking {{coinCount}} cryptocurrencies with insights from the last 24 hours.
+        </mj-text>
+        <mj-text color="#94a3b8" font-size="14px">
+          {{marketSummary}}
         </mj-text>
       </mj-column>
     </mj-section>
 
     <!-- Coin Summaries -->
     {{#each coins}}
-    <mj-section background-color="#1e293b" padding="20px" border-radius="8px">
+    <mj-section background-color="#1e293b" padding="20px">
       <mj-column>
         <mj-divider border-color="#334155" border-width="2px" padding-bottom="15px"></mj-divider>
 
